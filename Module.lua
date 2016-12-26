@@ -11,7 +11,7 @@ function Module:updateParameters(learningRate)
    local params, gradParams, scales = self:sparseParameters()
    if params then
       for i,param in pairs(params) do -- pairs for sparse params
-         local scale = scales and scales[i] or 1
+         local scale = scales and scales[i] and type(scales[i]) == "number" or 1
          param:add(-learningRate*scale, gradParams[i])
       end
    end
